@@ -68,16 +68,19 @@ impl CapabilityTable {
     }
 
     pub fn derive(&mut self, parent: Capability, rights: Rights, start: u64, end: u64) -> Result<Capability, CapabilityError> {
+        if start > end { return Err(CapabilityError::InvalidBounds); }
         let source = self.resolve(parent)?;
-        if !rights.is_subset_of(source.rights) || start < source.start || end > source.end || start > end {
+        if !rights.is_subset_of(source.rights) || start < source.start || end > source.end {
             return Err(CapabilityError::RightsEscalation);
         }
-        self.issue(source.object, rights, start, end)
+        let object = source.object;
+        self.issue(object, rights, start, end)
     }
 
     pub fn check(&self, cap: Capability, required: Rights, start: u64, end: u64) -> Result<u128, CapabilityError> {
+        if start > end { return Err(CapabilityError::InvalidBounds); }
         let entry = self.resolve(cap)?;
-        if !entry.rights.contains(required) || start < entry.start || end > entry.end || start > end {
+        if !entry.rights.contains(required) || start < entry.start || end > entry.end {
             return Err(CapabilityError::RightsEscalation);
         }
         Ok(entry.object)
@@ -122,5 +125,11 @@ mod tests {
         let cap = table.issue(9, Rights::READ, 0, 8).unwrap();
         table.revoke(cap).unwrap();
         assert_eq!(table.check(cap, Rights::READ, 0, 1), Err(CapabilityError::InvalidHandle));
+    }
+
+    #[test]
+    fn rejects_inverted_bounds() {
+        let mut table = CapabilityTable::new();
+        assert_eq!(table.issue(1, Rights::READ, 9, 2), Err(CapabilityError::InvalidBounds));
     }
 }
