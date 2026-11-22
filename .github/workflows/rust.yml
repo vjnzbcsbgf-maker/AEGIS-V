@@ -18,4 +18,4 @@ jobs:
       - name: Install stable Rust
         uses: dtolnay/rust-toolchain@stable
       - name: Run workspace tests
-        run: cargo test --workspace --locked
+        run: cargo test --workspace
