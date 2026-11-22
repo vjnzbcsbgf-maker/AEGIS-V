@@ -1,0 +1,10 @@
+[package]
+name = "aegis-cap"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+rust-version.workspace = true
+description = "Capability table prototype for AEGIS-V"
+
+[lints]
+workspace = true

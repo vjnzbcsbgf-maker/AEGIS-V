@@ -1,0 +1,13 @@
+[package]
+name = "aegis-runtime"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+rust-version.workspace = true
+description = "Experimental isolated MultiVM runtime for AEGIS-V"
+
+[dependencies]
+aegis-cap = { path = "../aegis-cap" }
+
+[lints]
+workspace = true

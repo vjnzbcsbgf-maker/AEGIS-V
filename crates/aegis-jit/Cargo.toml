@@ -1,0 +1,13 @@
+[package]
+name = "aegis-jit"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+rust-version.workspace = true
+description = "JIT translation pipeline boundary for AEGIS-V"
+
+[dependencies]
+aegis-isa = { path = "../aegis-isa" }
+
+[lints]
+workspace = true

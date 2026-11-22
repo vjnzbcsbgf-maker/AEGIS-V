@@ -1,0 +1,10 @@
+[package]
+name = "aegis-isa"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+rust-version.workspace = true
+description = "AEGIS-V64 instruction word format and decoder"
+
+[lints]
+workspace = true

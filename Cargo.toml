@@ -1,0 +1,21 @@
+[workspace]
+resolver = "2"
+members = [
+    "crates/aegis-isa",
+    "crates/aegis-cap",
+    "crates/aegis-runtime",
+    "crates/aegis-jit",
+]
+
+[workspace.package]
+edition = "2021"
+license = "UNLICENSED"
+version = "0.1.0"
+rust-version = "1.75"
+
+[workspace.lints.rust]
+unsafe_code = "forbid"
+missing_docs = "warn"
+
+[workspace.lints.clippy]
+all = "warn"
